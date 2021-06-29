@@ -70,7 +70,12 @@ func main() {
 				return nil
 			}
 
-			log.Println(path)
+			p, err := b.Upload(path)
+			if err != nil {
+				panic(err)
+			}
+
+			log.Printf("upload url: %s", p)
 
 			return nil
 		})
