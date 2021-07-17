@@ -30,6 +30,12 @@ type (
 	}
 )
 
+// ConfigTemplate get config template
+func ConfigTemplate() ([]byte, error) {
+	return json.MarshalIndent(githubConfig{}, "", "\t")
+}
+
+// New get github file operate obj
 func New() *GithubBed {
 	home, err := homedir.Dir()
 	if err != nil {
@@ -70,13 +76,14 @@ func New() *GithubBed {
 	}
 }
 
-func (g *GithubBed) Upload(fname string) (string, error) {
-	fi, err := os.Stat(fname)
+// Upload impl bed.Bed
+func (g *GithubBed) UploadByPath(filePath string) (string, error) {
+	fi, err := os.Stat(filePath)
 	if err != nil {
 		return "", err
 	}
 
-	f, err := os.OpenFile(fname, os.O_RDONLY, 0755)
+	f, err := os.OpenFile(filePath, os.O_RDONLY, 0755)
 	if err != nil {
 		return "", err
 	}
@@ -85,16 +92,21 @@ func (g *GithubBed) Upload(fname string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	return g.UploadByBytes(fs, fi.Name())
+}
+
+func (g *GithubBed) UploadByBytes(bs []byte, fileName string) (string, error) {
 	conf := g.config
 
 	opts := &github.RepositoryContentFileOptions{
 		Message:   github.String("upload by pic bed at " + time.Now().Format("2006-01-02 15:04:05")),
-		Content:   fs,
+		Content:   bs,
 		Branch:    github.String(conf.Branch),
 		Committer: &github.CommitAuthor{Name: github.String(conf.Owner), Email: github.String("kazma233@outlook.com")},
 	}
 
-	resp, _, err := g.client.Repositories.CreateFile(context.Background(), conf.Owner, conf.Repo, conf.PrefixFormat+fi.Name(), opts)
+	resp, _, err := g.client.Repositories.CreateFile(context.Background(), conf.Owner, conf.Repo, conf.PrefixFormat+fileName, opts)
 	if err != nil {
 		return "", err
 	}

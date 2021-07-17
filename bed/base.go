@@ -1,5 +1,7 @@
 package bed
 
 type Bed interface {
-	Upload(fname string) (string, error)
+	UploadByPath(filePath string) (string, error)
+
+	UploadByBytes(bs []byte, fname string) (string, error)
 }

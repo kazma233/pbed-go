@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>picbed</title>
+</head>
+
+<style type="text/css">
+    .container {
+        width: 700px;
+        margin: 0 auto;
+        background-color: antiquewhite;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <form action="/upload" method="POST" enctype="multipart/form-data" target="_self">
+            <input name="file" type="file" id="fileInput" class="fileInput" />
+            <button id="upload" type="submit">上传</button>
+        </form>
+        <div>
+            <span>{{ . }}</span>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+</script>
+
+</html>
