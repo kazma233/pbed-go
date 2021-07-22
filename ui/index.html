@@ -14,22 +14,26 @@
         margin: 0 auto;
         background-color: antiquewhite;
     }
+
+    .word {
+        width: 700px;
+        word-break: keep-all;
+    }
 </style>
 
 <body>
     <div class="container">
+
         <form action="/upload" method="POST" enctype="multipart/form-data" target="_self">
             <input name="file" type="file" id="fileInput" class="fileInput" />
             <button id="upload" type="submit">上传</button>
         </form>
-        <div>
-            <span>{{ . }}</span>
+
+        <div class="word">
+            <span class="">{{ . }}</span>
         </div>
+
     </div>
 </body>
-
-<script type="text/javascript">
-
-</script>
 
 </html>

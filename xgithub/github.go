@@ -76,7 +76,7 @@ func New() *GithubBed {
 	}
 }
 
-// Upload impl bed.Bed
+// UploadByPath impl bed.Bed
 func (g *GithubBed) UploadByPath(filePath string) (string, error) {
 	fi, err := os.Stat(filePath)
 	if err != nil {
