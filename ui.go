@@ -148,7 +148,7 @@ func initFont() {
 
 	for _, fn := range findfont.List() {
 		lowerFn := strings.ToLower(fn)
-		if strings.Contains(lowerFn, "pingfang") || strings.Contains(lowerFn, "msyh") {
+		if strings.Contains(lowerFn, "sarasa") {
 			log.Printf("find font: %s", fn)
 			err := os.Setenv("FYNE_FONT", fn)
 			if err != nil {
