@@ -120,7 +120,7 @@ func uploadAction() {
 		_ = strListBind.Append(upload(xb, up))
 	}
 
-	listTree.Resize(fyne.NewSize(listTree.MinSize().Width, 360))
+	listTree.Resize(fyne.NewSize(listTree.Size().Width, 360))
 }
 
 func fileDialogCallback(up string) {
