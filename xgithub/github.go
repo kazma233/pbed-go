@@ -3,6 +3,7 @@ package xgithub
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"pbed/cons"
@@ -14,26 +15,28 @@ import (
 )
 
 type (
-	githubConfig struct {
+	Author struct {
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}
+
+	GithubConfig struct {
 		Repo  string `json:"repo"`
 		Owner string `json:"owner"`
 		// github write token
 		Token  string `json:"token"`
 		Branch string `json:"branch"`
 		// default is time format, eg: 2015/01/02/
-		PrefixFormat string `json:"prefixFormat"`
+		PrefixFormat  string `json:"prefixFormat"`
+		MessageFormat string `json:"messageFormat"`
+		Author        Author `json:"author"`
 	}
 
 	GithubBed struct {
-		config githubConfig
+		config GithubConfig
 		client *github.Client
 	}
 )
-
-// ConfigTemplate get config template
-func ConfigTemplate() ([]byte, error) {
-	return json.MarshalIndent(githubConfig{}, "", "\t")
-}
 
 // New get github file operate obj
 func New() *GithubBed {
@@ -52,7 +55,7 @@ func New() *GithubBed {
 		panic(err)
 	}
 
-	conf := githubConfig{}
+	conf := GithubConfig{}
 	err = json.Unmarshal(fs, &conf)
 	if err != nil {
 		panic(err)
@@ -60,6 +63,10 @@ func New() *GithubBed {
 
 	if conf.PrefixFormat == "" {
 		conf.PrefixFormat = time.Now().Format("2006/01/02/")
+	}
+
+	if conf.MessageFormat == "" {
+		conf.MessageFormat = "upload by pic bed at: %s"
 	}
 
 	ctx := context.Background()
@@ -100,10 +107,10 @@ func (g *GithubBed) UploadByBytes(bs []byte, fileName string) (string, error) {
 	conf := g.config
 
 	opts := &github.RepositoryContentFileOptions{
-		Message:   github.String("upload by pic bed at " + time.Now().Format("2006-01-02 15:04:05")),
+		Message:   github.String(fmt.Sprintf(conf.MessageFormat, time.Now().Format("2006-01-02 15:04:05"))),
 		Content:   bs,
 		Branch:    github.String(conf.Branch),
-		Committer: &github.CommitAuthor{Name: github.String(conf.Owner), Email: github.String("kazma233@outlook.com")},
+		Committer: &github.CommitAuthor{Name: github.String(conf.Author.Name), Email: github.String(conf.Author.Email)},
 	}
 
 	resp, _, err := g.client.Repositories.CreateFile(context.Background(), conf.Owner, conf.Repo, conf.PrefixFormat+fileName, opts)

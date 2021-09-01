@@ -1,6 +1,11 @@
 package main
 
 import (
+	"log"
+	"os"
+	"pbed/bed"
+	"strings"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -8,10 +13,6 @@ import (
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/widget"
 	"github.com/flopp/go-findfont"
-	"log"
-	"os"
-	"pbed/bed"
-	"strings"
 )
 
 var (
@@ -85,7 +86,12 @@ func startGUI(bed bed.Bed) {
 			}),
 		),
 		widget.NewLabelWithData(infoTextBind),
-		widget.NewButton("上传", uploadAction),
+		container.NewGridWithColumns(2,
+			widget.NewSelect(BedType, func(s string) {
+
+			}),
+			widget.NewButton("上传", uploadAction),
+		),
 		container.NewGridWithRows(1, listTree),
 	))
 
@@ -117,7 +123,10 @@ func uploadAction() {
 			_ = strListBind.Append(p)
 		}
 	} else {
-		_ = strListBind.Append(upload(xb, up))
+		p := upload(xb, up)
+		if p != "" {
+			_ = strListBind.Append(p)
+		}
 	}
 
 	listTree.Resize(fyne.NewSize(listTree.Size().Width, 360))

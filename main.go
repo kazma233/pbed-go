@@ -2,10 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/mitchellh/go-homedir"
 	"log"
-	"os"
-	"pbed/cons"
 	"pbed/xgithub"
 )
 
@@ -21,8 +18,6 @@ func init() {
 	flag.BoolVar(&gui, "gui", false, "start a pic bed gui")
 
 	flag.Parse()
-
-	initConfig()
 }
 
 func main() {
@@ -51,34 +46,4 @@ func main() {
 	}
 
 	log.Println("use -h to get help")
-}
-
-func initConfig() {
-	home, err := homedir.Dir()
-	if err != nil {
-		panic(err)
-	}
-
-	fn := home + cons.ConfigPath
-
-	_, err = os.Stat(fn)
-	if err != nil && os.IsNotExist(err) {
-		log.Println("init config")
-
-		f, err := os.Create(fn)
-		if err != nil {
-			panic(err)
-		}
-
-		bs, err := xgithub.ConfigTemplate()
-		if err != nil {
-			panic(err)
-		}
-
-		_, err = f.Write(bs)
-
-		if err != nil {
-			panic(err)
-		}
-	}
 }

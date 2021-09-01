@@ -35,7 +35,7 @@ func upload(b bed.Bed, filePath string) (url string) {
 	if err != nil {
 		log.Printf("[%s]: Upload failed, reason -> %v", filePath, err)
 	} else {
-		log.Printf("[%s]: Upload finish, url -> %s", filePath, url)
+		log.Printf("[%s]: Upload finished, url -> %s", filePath, url)
 	}
 
 	return

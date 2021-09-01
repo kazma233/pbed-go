@@ -3,5 +3,5 @@ package cons
 import "path/filepath"
 
 const (
-	ConfigPath = string(filepath.Separator) + "github.json"
+	ConfigPath = string(filepath.Separator) + "pbed.json"
 )
