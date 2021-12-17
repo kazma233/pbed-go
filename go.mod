@@ -3,34 +3,16 @@ module pbed
 go 1.17
 
 require (
-	fyne.io/fyne/v2 v2.0.3
-	github.com/flopp/go-findfont v0.0.0-20201114153133-e7393a00c15b
 	github.com/google/go-github/v36 v36.0.0
 	github.com/mitchellh/go-homedir v1.1.0
 	golang.org/x/oauth2 v0.0.0-20210622215436-a8dc77f794b6
 )
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/fredbi/uri v0.0.0-20181227131451-3dcfdacbaaf3 // indirect
-	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/fyne-io/mobile v0.1.3-0.20210412090810-650a3139866a // indirect
-	github.com/go-gl/gl v0.0.0-20190320180904-bf2b1f2f34d7 // indirect
-	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20210410170116-ea3d685f79fb // indirect
-	github.com/godbus/dbus/v5 v5.0.4 // indirect
-	github.com/goki/freetype v0.0.0-20181231101311-fa8a33aabaff // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/srwiley/oksvg v0.0.0-20200311192757-870daf9aa564 // indirect
-	github.com/srwiley/rasterx v0.0.0-20200120212402-85cb7272f5e9 // indirect
-	github.com/stretchr/testify v1.5.1 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
-	golang.org/x/image v0.0.0-20200430140353-33d19683fad8 // indirect
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
-	golang.org/x/sys v0.0.0-20200803210538-64077c9b5642 // indirect
-	golang.org/x/text v0.3.3 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
